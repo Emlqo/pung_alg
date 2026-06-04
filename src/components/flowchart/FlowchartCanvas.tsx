@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 import type {
   FlowEdge,
   FlowNode as FlowNodeType,
@@ -12,6 +16,7 @@ type FlowchartCanvasProps = {
   answers: StudentBlankAnswers;
   blankResults: Record<string, "correct" | "incorrect">;
   hasSelectedChoice?: boolean;
+  defaultZoom?: number;
   onBlankClick?: (blankId: string) => void;
   onRemoveAnswer?: (blankId: string) => void;
 };
@@ -22,59 +27,125 @@ export function FlowchartCanvas({
   answers,
   blankResults,
   hasSelectedChoice = false,
+  defaultZoom = 1,
   onBlankClick,
   onRemoveAnswer,
 }: FlowchartCanvasProps) {
+  const [zoom, setZoom] = useState(defaultZoom);
   const canvasWidth =
     Math.max(...nodes.map((node) => node.x + node.width), 860) + 80;
   const canvasHeight =
     Math.max(...nodes.map((node) => node.y + node.height), 680) + 80;
+  const zoomPercent = Math.round(zoom * 100);
+
+  const handleZoomOut = () => {
+    setZoom((current) => Math.max(0.65, Number((current - 0.1).toFixed(2))));
+  };
+
+  const handleZoomIn = () => {
+    setZoom((current) => Math.min(1.15, Number((current + 0.1).toFixed(2))));
+  };
+
+  const handleZoomReset = () => {
+    setZoom(1);
+  };
 
   return (
-    <section className="overflow-x-auto overflow-y-hidden rounded-[8px] border border-slate-200 bg-white p-3 shadow-soft sm:p-5">
+    <section className="rounded-[8px] border border-slate-200 bg-white p-3 shadow-soft sm:p-5">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-black text-slate-950">순서도</h2>
+          <p className="text-sm font-bold text-slate-500">
+            보기 배율 {zoomPercent}%
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            aria-label="순서도 축소"
+            className="h-10 w-10 rounded-[8px] border border-slate-200 bg-slate-50 text-xl font-black text-slate-800 transition hover:border-emerald-400 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-40"
+            disabled={zoom <= 0.65}
+            onClick={handleZoomOut}
+            type="button"
+          >
+            -
+          </button>
+          <button
+            className="h-10 rounded-[8px] border border-slate-200 bg-white px-4 text-sm font-black text-slate-700 transition hover:border-emerald-400 hover:bg-emerald-50"
+            onClick={handleZoomReset}
+            type="button"
+          >
+            100%
+          </button>
+          <button
+            aria-label="순서도 확대"
+            className="h-10 w-10 rounded-[8px] border border-slate-200 bg-slate-50 text-xl font-black text-slate-800 transition hover:border-emerald-400 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-40"
+            disabled={zoom >= 1.15}
+            onClick={handleZoomIn}
+            type="button"
+          >
+            +
+          </button>
+        </div>
+      </div>
       <div
-        className="relative rounded-[8px] border border-slate-100 bg-slate-50"
+        className="overflow-auto rounded-[8px] border border-slate-100 bg-white"
         style={{
-          minWidth: canvasWidth,
-          height: canvasHeight,
-          backgroundImage:
-            "linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
+          maxHeight: "calc(100vh - 220px)",
         }}
       >
-        <svg
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          viewBox={`0 0 ${canvasWidth} ${canvasHeight}`}
+        <div
+          style={{
+            width: canvasWidth * zoom,
+            height: canvasHeight * zoom,
+          }}
         >
-          <defs>
-            <marker
-              id="arrow"
-              markerHeight="12"
-              markerWidth="12"
-              orient="auto"
-              refX="10"
-              refY="6"
+          <div
+            className="relative rounded-[8px] border border-slate-100 bg-slate-50"
+            style={{
+              width: canvasWidth,
+              height: canvasHeight,
+              transform: `scale(${zoom})`,
+              transformOrigin: "top left",
+              backgroundImage:
+                "linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
+            }}
+          >
+            <svg
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 h-full w-full"
+              viewBox={`0 0 ${canvasWidth} ${canvasHeight}`}
             >
-              <path d="M1,1 L11,6 L1,11 Z" fill="#334155" />
-            </marker>
-          </defs>
-          {edges.map((edge) => (
-            <EdgePath edge={edge} key={edge.id} />
-          ))}
-        </svg>
+              <defs>
+                <marker
+                  id="arrow"
+                  markerHeight="12"
+                  markerWidth="12"
+                  orient="auto"
+                  refX="10"
+                  refY="6"
+                >
+                  <path d="M1,1 L11,6 L1,11 Z" fill="#334155" />
+                </marker>
+              </defs>
+              {edges.map((edge) => (
+                <EdgePath edge={edge} key={edge.id} />
+              ))}
+            </svg>
 
-        {nodes.map((node) => (
-          <FlowNode
-            answers={answers}
-            blankResults={blankResults}
-            hasSelectedChoice={hasSelectedChoice}
-            key={node.id}
-            node={node}
-            onBlankClick={onBlankClick}
-            onRemoveAnswer={onRemoveAnswer}
-          />
-        ))}
+            {nodes.map((node) => (
+              <FlowNode
+                answers={answers}
+                blankResults={blankResults}
+                hasSelectedChoice={hasSelectedChoice}
+                key={node.id}
+                node={node}
+                onBlankClick={onBlankClick}
+                onRemoveAnswer={onRemoveAnswer}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

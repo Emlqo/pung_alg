@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { DndContext } from "@dnd-kit/core";
 import { useRouter } from "next/navigation";
 
 import { FlowchartCanvas } from "@/components/flowchart/FlowchartCanvas";
@@ -454,14 +453,13 @@ export function StageForm({
                   {difficultyLabels[visibleStage.difficulty]}
                 </span>
               </div>
-              <DndContext>
-                <FlowchartCanvas
-                  answers={{}}
-                  blankResults={{}}
-                  edges={visibleStage.edges}
-                  nodes={visibleStage.nodes}
-                />
-              </DndContext>
+              <FlowchartCanvas
+                answers={{}}
+                blankResults={{}}
+                defaultZoom={0.8}
+                edges={visibleStage.edges}
+                nodes={visibleStage.nodes}
+              />
             </div>
           </section>
         </section>
