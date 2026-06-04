@@ -11,6 +11,8 @@ type FlowNodeProps = {
   node: FlowNodeType;
   answers: StudentBlankAnswers;
   blankResults: BlankResultMap;
+  hasSelectedChoice?: boolean;
+  onBlankClick?: (blankId: string) => void;
   onRemoveAnswer?: (blankId: string) => void;
 };
 
@@ -18,7 +20,9 @@ export function FlowNode({
   node,
   answers,
   blankResults,
+  hasSelectedChoice = false,
   onRemoveAnswer,
+  onBlankClick,
 }: FlowNodeProps) {
   return (
     <div
@@ -35,7 +39,9 @@ export function FlowNode({
         <NodeText
           answers={answers}
           blankResults={blankResults}
+          hasSelectedChoice={hasSelectedChoice}
           node={node}
+          onBlankClick={onBlankClick}
           onRemoveAnswer={onRemoveAnswer}
         />
       </div>
@@ -47,11 +53,15 @@ function NodeText({
   node,
   answers,
   blankResults,
+  hasSelectedChoice,
   onRemoveAnswer,
+  onBlankClick,
 }: {
   node: FlowNodeType;
   answers: StudentBlankAnswers;
   blankResults: BlankResultMap;
+  hasSelectedChoice: boolean;
+  onBlankClick?: (blankId: string) => void;
   onRemoveAnswer?: (blankId: string) => void;
 }) {
   const parts = node.text.split(/(\{\{[^}]+\}\})/g);
@@ -81,7 +91,9 @@ function NodeText({
         return (
           <DropBlank
             blank={blank}
+            hasSelectedChoice={hasSelectedChoice}
             key={blank.id}
+            onBlankClick={onBlankClick}
             onRemove={onRemoveAnswer}
             result={blankResults[blank.id]}
             value={answers[blank.id]}

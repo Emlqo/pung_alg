@@ -1,11 +1,15 @@
 "use client";
 
+import Link from "next/link";
+
 export type AnswerCheckStatus = "idle" | "incomplete" | "correct" | "incorrect";
 
 type AnswerCheckButtonProps = {
   status: AnswerCheckStatus;
   onCheck: () => void;
   onReset: () => void;
+  isStageCleared?: boolean;
+  nextStageId?: string;
 };
 
 const resultMessages: Record<Exclude<AnswerCheckStatus, "idle">, string> = {
@@ -18,6 +22,8 @@ export function AnswerCheckButton({
   status,
   onCheck,
   onReset,
+  isStageCleared = false,
+  nextStageId,
 }: AnswerCheckButtonProps) {
   const message = status === "idle" ? null : resultMessages[status];
 
@@ -49,6 +55,21 @@ export function AnswerCheckButton({
           다시 풀기
         </button>
       </div>
+
+      {isStageCleared ? (
+        nextStageId ? (
+          <Link
+            className="mt-3 inline-flex min-h-14 w-full items-center justify-center rounded-[8px] bg-sky-600 px-5 text-lg font-black text-white shadow-sm transition hover:bg-sky-700 focus:outline-none focus:ring-4 focus:ring-sky-200"
+            href={`/student/stage/${nextStageId}`}
+          >
+            다음 스테이지 가기
+          </Link>
+        ) : (
+          <p className="mt-3 rounded-[8px] bg-emerald-100 px-4 py-3 text-center text-base font-black text-emerald-800">
+            모든 스테이지를 클리어했어요
+          </p>
+        )
+      ) : null}
     </div>
   );
 }

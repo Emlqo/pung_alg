@@ -8,7 +8,11 @@ type ChoiceBankProps = {
   answerStatus: AnswerCheckStatus;
   onCheckAnswers: () => void;
   onResetAnswers: () => void;
+  onSelectChoice: (choice: Choice) => void;
+  selectedChoiceValue?: string;
   usedChoiceValues: Set<string>;
+  isStageCleared?: boolean;
+  nextStageId?: string;
 };
 
 export function ChoiceBank({
@@ -16,7 +20,11 @@ export function ChoiceBank({
   answerStatus,
   onCheckAnswers,
   onResetAnswers,
+  onSelectChoice,
+  selectedChoiceValue,
   usedChoiceValues,
+  isStageCleared = false,
+  nextStageId,
 }: ChoiceBankProps) {
   return (
     <aside className="rounded-[8px] border border-slate-200 bg-white p-4 shadow-soft xl:sticky xl:top-5 xl:self-start">
@@ -32,10 +40,14 @@ export function ChoiceBank({
             choice={choice}
             disabled={usedChoiceValues.has(choice.value)}
             key={choice.id}
+            onSelect={onSelectChoice}
+            selected={selectedChoiceValue === choice.value}
           />
         ))}
       </div>
       <AnswerCheckButton
+        isStageCleared={isStageCleared}
+        nextStageId={nextStageId}
         onCheck={onCheckAnswers}
         onReset={onResetAnswers}
         status={answerStatus}

@@ -3,14 +3,6 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {
-  closestCenter,
-  DndContext,
-  DragEndEvent,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
 
 import type { AnswerCheckStatus } from "@/components/flowchart/AnswerCheckButton";
 import { ChoiceBank } from "@/components/flowchart/ChoiceBank";
@@ -40,13 +32,7 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
   const [blankResults, setBlankResults] = useState<BlankResultMap>({});
   const [isStageCleared, setIsStageCleared] = useState(false);
   const [nextStage, setNextStage] = useState<Stage | null>(null);
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 6,
-      },
-    }),
-  );
+  const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null);
 
   const blanks = useMemo(
     () => stage.nodes.flatMap((node) => node.blanks),
@@ -65,18 +51,22 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
     [answers],
   );
 
-  const handleDragEnd = (event: DragEndEvent) => {
-    const blankId = event.over?.id;
-    const choice = event.active.data.current?.choice as Choice | undefined;
+  const handleSelectChoice = (choice: Choice) => {
+    setSelectedChoice((current) =>
+      current?.value === choice.value ? null : choice,
+    );
+  };
 
-    if (!blankId || !choice) {
+  const handleBlankClick = (blankId: string) => {
+    if (!selectedChoice) {
       return;
     }
 
     setAnswers((current) => ({
       ...current,
-      [String(blankId)]: choice.value,
+      [blankId]: selectedChoice.value,
     }));
+    setSelectedChoice(null);
     setAnswerStatus("idle");
     setBlankResults({});
     setIsStageCleared(false);
@@ -126,6 +116,7 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
 
   const handleResetAnswers = () => {
     setAnswers({});
+    setSelectedChoice(null);
     setAnswerStatus("idle");
     setBlankResults({});
     setIsStageCleared(false);
@@ -134,12 +125,7 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
   };
 
   return (
-    <DndContext
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-      sensors={sensors}
-    >
-      <main className="min-h-screen px-4 py-5 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-5 sm:px-6 lg:px-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-5">
           <header className="rounded-[8px] border border-emerald-100 bg-white px-5 py-5 shadow-soft">
             <div className="mb-5 flex flex-wrap gap-2">
@@ -180,48 +166,26 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
               answers={answers}
               blankResults={blankResults}
               edges={stage.edges}
+              hasSelectedChoice={Boolean(selectedChoice)}
               nodes={stage.nodes}
+              onBlankClick={handleBlankClick}
               onRemoveAnswer={handleRemoveAnswer}
             />
             <ChoiceBank
               answerStatus={answerStatus}
               choices={shuffledChoices}
+              isStageCleared={isStageCleared}
+              nextStageId={nextStage?.id}
               onCheckAnswers={handleCheckAnswers}
               onResetAnswers={handleResetAnswers}
+              onSelectChoice={handleSelectChoice}
+              selectedChoiceValue={selectedChoice?.value}
               usedChoiceValues={usedChoiceValues}
             />
           </section>
 
-          {isStageCleared ? (
-            <section className="rounded-[8px] border-2 border-emerald-200 bg-emerald-50 p-5 text-center shadow-soft">
-              <p className="text-xl font-black text-emerald-800">
-                스테이지 클리어! 다음 문제로 바로 이어서 풀어볼까요?
-              </p>
-              <div className="mt-4 flex flex-col justify-center gap-3 sm:flex-row">
-                {nextStage ? (
-                  <Link
-                    className="inline-flex min-h-12 items-center justify-center rounded-[8px] bg-emerald-600 px-5 text-base font-black text-white transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200"
-                    href={`/student/stage/${nextStage.id}`}
-                  >
-                    다음 스테이지 가기
-                  </Link>
-                ) : (
-                  <span className="inline-flex min-h-12 items-center justify-center rounded-[8px] bg-emerald-100 px-5 text-base font-black text-emerald-800">
-                    모든 스테이지를 클리어했어요
-                  </span>
-                )}
-                <Link
-                  className="inline-flex min-h-12 items-center justify-center rounded-[8px] border-2 border-emerald-200 bg-white px-5 text-base font-black text-emerald-800 transition hover:bg-emerald-50 focus:outline-none focus:ring-4 focus:ring-emerald-100"
-                  href="/student"
-                >
-                  문제 목록 보기
-                </Link>
-              </div>
-            </section>
-          ) : null}
         </div>
-      </main>
-    </DndContext>
+    </main>
   );
 }
 

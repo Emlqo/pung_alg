@@ -11,6 +11,8 @@ type FlowchartCanvasProps = {
   edges: FlowEdge[];
   answers: StudentBlankAnswers;
   blankResults: Record<string, "correct" | "incorrect">;
+  hasSelectedChoice?: boolean;
+  onBlankClick?: (blankId: string) => void;
   onRemoveAnswer?: (blankId: string) => void;
 };
 
@@ -19,6 +21,8 @@ export function FlowchartCanvas({
   edges,
   answers,
   blankResults,
+  hasSelectedChoice = false,
+  onBlankClick,
   onRemoveAnswer,
 }: FlowchartCanvasProps) {
   const canvasWidth =
@@ -64,8 +68,10 @@ export function FlowchartCanvas({
           <FlowNode
             answers={answers}
             blankResults={blankResults}
+            hasSelectedChoice={hasSelectedChoice}
             key={node.id}
             node={node}
+            onBlankClick={onBlankClick}
             onRemoveAnswer={onRemoveAnswer}
           />
         ))}
