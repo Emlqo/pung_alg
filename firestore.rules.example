@@ -1,0 +1,12 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /stages/{stageId} {
+      // Development only: allow unauthenticated reads and writes while testing.
+      // Production must use authentication-based rules, for example checking
+      // request.auth != null and matching request.auth.uid with teacherId.
+      allow read, write: if true;
+    }
+  }
+}
