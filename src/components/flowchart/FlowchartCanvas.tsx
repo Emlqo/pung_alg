@@ -32,10 +32,19 @@ export function FlowchartCanvas({
   onRemoveAnswer,
 }: FlowchartCanvasProps) {
   const [zoom, setZoom] = useState(defaultZoom);
+  const edgePoints = edges.flatMap((edge) => edge.points ?? []);
   const canvasWidth =
-    Math.max(...nodes.map((node) => node.x + node.width), 860) + 80;
+    Math.max(
+      ...nodes.map((node) => node.x + node.width),
+      ...edgePoints.map((point) => point.x),
+      860,
+    ) + 80;
   const canvasHeight =
-    Math.max(...nodes.map((node) => node.y + node.height), 680) + 80;
+    Math.max(
+      ...nodes.map((node) => node.y + node.height),
+      ...edgePoints.map((point) => point.y),
+      680,
+    ) + 80;
   const zoomPercent = Math.round(zoom * 100);
 
   const handleZoomOut = () => {

@@ -165,7 +165,7 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
             <FlowchartCanvas
               answers={answers}
               blankResults={blankResults}
-              defaultZoom={0.85}
+              defaultZoom={0.75}
               edges={stage.edges}
               hasSelectedChoice={Boolean(selectedChoice)}
               nodes={stage.nodes}

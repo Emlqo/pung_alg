@@ -195,7 +195,7 @@ function createRamenStage(): Stage {
     {
       id: `${id}-start`,
       type: "start",
-      x: 360,
+      x: 560,
       y: 40,
       text: "시작",
       blanks: [],
@@ -205,8 +205,8 @@ function createRamenStage(): Stage {
     {
       id: `${id}-input`,
       type: "input",
-      x: 310,
-      y: 145,
+      x: 500,
+      y: 160,
       text: "물, 면, 스프 준비",
       blanks: [],
       width: 280,
@@ -215,8 +215,8 @@ function createRamenStage(): Stage {
     {
       id: `${id}-boil`,
       type: "process",
-      x: 320,
-      y: 260,
+      x: 510,
+      y: 300,
       text: "물을 끓인다",
       blanks: [],
       width: 260,
@@ -225,8 +225,8 @@ function createRamenStage(): Stage {
     {
       id: `${id}-add`,
       type: "process",
-      x: 300,
-      y: 380,
+      x: 490,
+      y: 440,
       text: `면과 {{${soupBlankId}}}를 넣는다`,
       blanks: [
         {
@@ -242,8 +242,8 @@ function createRamenStage(): Stage {
     {
       id: `${id}-condition`,
       type: "condition",
-      x: 315,
-      y: 520,
+      x: 495,
+      y: 600,
       text: `{{${timeBlankId}}}분 지났나요?`,
       blanks: [
         {
@@ -259,8 +259,8 @@ function createRamenStage(): Stage {
     {
       id: `${id}-more`,
       type: "process",
-      x: 40,
-      y: 545,
+      x: 80,
+      y: 630,
       text: "조금 더 끓인다",
       blanks: [],
       width: 240,
@@ -269,8 +269,8 @@ function createRamenStage(): Stage {
     {
       id: `${id}-output`,
       type: "output",
-      x: 620,
-      y: 545,
+      x: 920,
+      y: 630,
       text: `{{${outputBlankId}}} 완성`,
       blanks: [
         {
@@ -286,8 +286,8 @@ function createRamenStage(): Stage {
     {
       id: `${id}-end`,
       type: "end",
-      x: 660,
-      y: 700,
+      x: 960,
+      y: 820,
       text: "끝",
       blanks: [],
       width: 160,
@@ -334,7 +334,7 @@ function createSafeStage(): Stage {
     {
       id: `${id}-start`,
       type: "start",
-      x: 360,
+      x: 560,
       y: 40,
       text: "시작",
       blanks: [],
@@ -344,8 +344,8 @@ function createSafeStage(): Stage {
     {
       id: `${id}-input`,
       type: "input",
-      x: 320,
-      y: 150,
+      x: 510,
+      y: 170,
       text: "비밀번호 입력",
       blanks: [],
       width: 260,
@@ -354,8 +354,8 @@ function createSafeStage(): Stage {
     {
       id: `${id}-condition`,
       type: "condition",
-      x: 300,
-      y: 280,
+      x: 490,
+      y: 320,
       text: `비밀번호 == {{${passwordBlankId}}}?`,
       blanks: [
         {
@@ -371,8 +371,8 @@ function createSafeStage(): Stage {
     {
       id: `${id}-open`,
       type: "output",
-      x: 600,
-      y: 480,
+      x: 920,
+      y: 570,
       text: `금고 {{${openBlankId}}}`,
       blanks: [
         {
@@ -389,7 +389,7 @@ function createSafeStage(): Stage {
       id: `${id}-retry`,
       type: "output",
       x: 60,
-      y: 480,
+      y: 570,
       text: `{{${retryBlankId}}}하세요`,
       blanks: [
         {
@@ -405,8 +405,8 @@ function createSafeStage(): Stage {
     {
       id: `${id}-end`,
       type: "end",
-      x: 360,
-      y: 660,
+      x: 560,
+      y: 790,
       text: "끝",
       blanks: [],
       width: 160,
@@ -452,7 +452,7 @@ function createEvenOddStage(): Stage {
     {
       id: `${id}-start`,
       type: "start",
-      x: 360,
+      x: 560,
       y: 40,
       text: "시작",
       blanks: [],
@@ -462,8 +462,8 @@ function createEvenOddStage(): Stage {
     {
       id: `${id}-input`,
       type: "input",
-      x: 320,
-      y: 150,
+      x: 510,
+      y: 170,
       text: "n = 7 입력",
       blanks: [],
       width: 260,
@@ -472,8 +472,8 @@ function createEvenOddStage(): Stage {
     {
       id: `${id}-condition`,
       type: "condition",
-      x: 285,
-      y: 280,
+      x: 475,
+      y: 320,
       text: `n {{${modBlankId}}} {{${divisorBlankId}}} == 0?`,
       blanks: [
         {
@@ -495,8 +495,8 @@ function createEvenOddStage(): Stage {
     {
       id: `${id}-even`,
       type: "output",
-      x: 600,
-      y: 500,
+      x: 940,
+      y: 570,
       text: `{{${evenBlankId}}} 출력`,
       blanks: [
         {
@@ -513,7 +513,7 @@ function createEvenOddStage(): Stage {
       id: `${id}-odd`,
       type: "output",
       x: 60,
-      y: 500,
+      y: 570,
       text: `{{${oddBlankId}}} 출력`,
       blanks: [
         {
@@ -529,8 +529,8 @@ function createEvenOddStage(): Stage {
     {
       id: `${id}-end`,
       type: "end",
-      x: 360,
-      y: 680,
+      x: 560,
+      y: 790,
       text: "끝",
       blanks: [],
       width: 160,
@@ -577,7 +577,7 @@ function createDeliveryFeeStage(): Stage {
     {
       id: `${id}-start`,
       type: "start",
-      x: 360,
+      x: 560,
       y: 40,
       text: "시작",
       blanks: [],
@@ -587,8 +587,8 @@ function createDeliveryFeeStage(): Stage {
     {
       id: `${id}-input`,
       type: "input",
-      x: 300,
-      y: 150,
+      x: 480,
+      y: 170,
       text: "주문금액 = 18000 입력",
       blanks: [],
       width: 320,
@@ -597,8 +597,8 @@ function createDeliveryFeeStage(): Stage {
     {
       id: `${id}-condition`,
       type: "condition",
-      x: 285,
-      y: 280,
+      x: 475,
+      y: 320,
       text: `주문금액 >= {{${limitBlankId}}}?`,
       blanks: [
         {
@@ -614,8 +614,8 @@ function createDeliveryFeeStage(): Stage {
     {
       id: `${id}-free`,
       type: "process",
-      x: 610,
-      y: 500,
+      x: 940,
+      y: 570,
       text: `배달비 = {{${freeBlankId}}}`,
       blanks: [
         {
@@ -631,8 +631,8 @@ function createDeliveryFeeStage(): Stage {
     {
       id: `${id}-fee`,
       type: "process",
-      x: 40,
-      y: 500,
+      x: 60,
+      y: 570,
       text: `배달비 = {{${feeBlankId}}}`,
       blanks: [
         {
@@ -648,8 +648,8 @@ function createDeliveryFeeStage(): Stage {
     {
       id: `${id}-output`,
       type: "output",
-      x: 300,
-      y: 680,
+      x: 480,
+      y: 800,
       text: `{{${totalBlankId}}} 출력`,
       blanks: [
         {
@@ -665,8 +665,8 @@ function createDeliveryFeeStage(): Stage {
     {
       id: `${id}-end`,
       type: "end",
-      x: 360,
-      y: 820,
+      x: 560,
+      y: 960,
       text: "끝",
       blanks: [],
       width: 160,
@@ -718,7 +718,7 @@ function createVendingMachineStage(): Stage {
     {
       id: `${id}-start`,
       type: "start",
-      x: 360,
+      x: 560,
       y: 40,
       text: "시작",
       blanks: [],
@@ -728,8 +728,8 @@ function createVendingMachineStage(): Stage {
     {
       id: `${id}-input`,
       type: "input",
-      x: 300,
-      y: 150,
+      x: 470,
+      y: 170,
       text: "돈 = 1500, 가격 = 1200 입력",
       blanks: [],
       width: 340,
@@ -738,8 +738,8 @@ function createVendingMachineStage(): Stage {
     {
       id: `${id}-condition`,
       type: "condition",
-      x: 285,
-      y: 280,
+      x: 475,
+      y: 320,
       text: `돈 >= {{${enoughBlankId}}}?`,
       blanks: [
         {
@@ -755,8 +755,8 @@ function createVendingMachineStage(): Stage {
     {
       id: `${id}-change`,
       type: "process",
-      x: 590,
-      y: 500,
+      x: 900,
+      y: 550,
       text: `거스름돈 = 돈 {{${operatorBlankId}}} 가격`,
       blanks: [
         {
@@ -772,8 +772,8 @@ function createVendingMachineStage(): Stage {
     {
       id: `${id}-drink`,
       type: "output",
-      x: 620,
-      y: 650,
+      x: 940,
+      y: 710,
       text: `{{${drinkBlankId}}} 출력`,
       blanks: [
         {
@@ -789,8 +789,8 @@ function createVendingMachineStage(): Stage {
     {
       id: `${id}-shortage`,
       type: "output",
-      x: 40,
-      y: 500,
+      x: 60,
+      y: 550,
       text: `{{${shortageBlankId}}} 출력`,
       blanks: [
         {
@@ -806,8 +806,8 @@ function createVendingMachineStage(): Stage {
     {
       id: `${id}-end`,
       type: "end",
-      x: 360,
-      y: 790,
+      x: 560,
+      y: 910,
       text: "끝",
       blanks: [],
       width: 160,
@@ -856,7 +856,7 @@ function createPasswordLimitStage(): Stage {
     {
       id: `${id}-start`,
       type: "start",
-      x: 360,
+      x: 560,
       y: 40,
       text: "시작",
       blanks: [],
@@ -866,8 +866,8 @@ function createPasswordLimitStage(): Stage {
     {
       id: `${id}-input`,
       type: "input",
-      x: 320,
-      y: 150,
+      x: 500,
+      y: 170,
       text: "비밀번호 입력, count = 0",
       blanks: [],
       width: 300,
@@ -876,8 +876,8 @@ function createPasswordLimitStage(): Stage {
     {
       id: `${id}-check-password`,
       type: "condition",
-      x: 300,
-      y: 280,
+      x: 490,
+      y: 320,
       text: `비밀번호 == {{${passwordBlankId}}}?`,
       blanks: [
         {
@@ -893,8 +893,8 @@ function createPasswordLimitStage(): Stage {
     {
       id: `${id}-success`,
       type: "output",
-      x: 640,
-      y: 320,
+      x: 940,
+      y: 350,
       text: `{{${successBlankId}}} 출력`,
       blanks: [
         {
@@ -910,8 +910,8 @@ function createPasswordLimitStage(): Stage {
     {
       id: `${id}-count`,
       type: "process",
-      x: 320,
-      y: 480,
+      x: 500,
+      y: 560,
       text: `count = count {{${plusBlankId}}} 1`,
       blanks: [
         {
@@ -927,8 +927,8 @@ function createPasswordLimitStage(): Stage {
     {
       id: `${id}-check-count`,
       type: "condition",
-      x: 300,
-      y: 620,
+      x: 490,
+      y: 720,
       text: `count < {{${limitBlankId}}}?`,
       blanks: [
         {
@@ -944,8 +944,8 @@ function createPasswordLimitStage(): Stage {
     {
       id: `${id}-lock`,
       type: "output",
-      x: 640,
-      y: 650,
+      x: 940,
+      y: 750,
       text: `{{${lockBlankId}}} 출력`,
       blanks: [
         {
@@ -961,8 +961,8 @@ function createPasswordLimitStage(): Stage {
     {
       id: `${id}-end`,
       type: "end",
-      x: 670,
-      y: 810,
+      x: 560,
+      y: 990,
       text: "끝",
       blanks: [],
       width: 160,
@@ -988,7 +988,12 @@ function createPasswordLimitStage(): Stage {
       createVerticalEdge(`${id}-edge-count-check-count`, nodes[4], nodes[5]),
       createLoopEdge(`${id}-edge-retry-input`, nodes[5], nodes[1], "예"),
       createLabeledEdge(`${id}-edge-count-lock`, nodes[5], nodes[6], "아니오"),
-      createVerticalEdge(`${id}-edge-success-end`, nodes[3], nodes[7]),
+      createOuterMergeEdge(
+        `${id}-edge-success-end`,
+        nodes[3],
+        nodes[7],
+        "right",
+      ),
       createVerticalEdge(`${id}-edge-lock-end`, nodes[6], nodes[7]),
     ],
     choices: [
@@ -1018,7 +1023,7 @@ function createScoreGradeStage(): Stage {
     {
       id: `${id}-start`,
       type: "start",
-      x: 360,
+      x: 560,
       y: 40,
       text: "시작",
       blanks: [],
@@ -1028,8 +1033,8 @@ function createScoreGradeStage(): Stage {
     {
       id: `${id}-input`,
       type: "input",
-      x: 320,
-      y: 150,
+      x: 510,
+      y: 170,
       text: "score = 85 입력",
       blanks: [],
       width: 260,
@@ -1038,8 +1043,8 @@ function createScoreGradeStage(): Stage {
     {
       id: `${id}-check-a`,
       type: "condition",
-      x: 300,
-      y: 280,
+      x: 490,
+      y: 320,
       text: `score >= {{${aLimitBlankId}}}?`,
       blanks: [
         {
@@ -1055,8 +1060,8 @@ function createScoreGradeStage(): Stage {
     {
       id: `${id}-a`,
       type: "output",
-      x: 640,
-      y: 330,
+      x: 940,
+      y: 350,
       text: `{{${aBlankId}}} 등급 출력`,
       blanks: [
         {
@@ -1072,8 +1077,8 @@ function createScoreGradeStage(): Stage {
     {
       id: `${id}-check-b`,
       type: "condition",
-      x: 300,
-      y: 500,
+      x: 490,
+      y: 580,
       text: `score >= {{${bLimitBlankId}}}?`,
       blanks: [
         {
@@ -1089,8 +1094,8 @@ function createScoreGradeStage(): Stage {
     {
       id: `${id}-b`,
       type: "output",
-      x: 640,
-      y: 550,
+      x: 940,
+      y: 610,
       text: `{{${bBlankId}}} 등급 출력`,
       blanks: [
         {
@@ -1107,7 +1112,7 @@ function createScoreGradeStage(): Stage {
       id: `${id}-c`,
       type: "output",
       x: 60,
-      y: 550,
+      y: 610,
       text: `{{${cBlankId}}} 등급 출력`,
       blanks: [
         {
@@ -1123,8 +1128,8 @@ function createScoreGradeStage(): Stage {
     {
       id: `${id}-end`,
       type: "end",
-      x: 360,
-      y: 760,
+      x: 560,
+      y: 860,
       text: "끝",
       blanks: [],
       width: 160,
@@ -1149,7 +1154,12 @@ function createScoreGradeStage(): Stage {
       createVerticalEdge(`${id}-edge-check-a-check-b`, nodes[2], nodes[4]),
       createLabeledEdge(`${id}-edge-check-b-output`, nodes[4], nodes[5], "예"),
       createLabeledEdge(`${id}-edge-check-b-c`, nodes[4], nodes[6], "아니오"),
-      createLabeledEdge(`${id}-edge-a-end`, nodes[3], nodes[7]),
+      createOuterMergeEdge(
+        `${id}-edge-a-end`,
+        nodes[3],
+        nodes[7],
+        "right",
+      ),
       createLabeledEdge(`${id}-edge-b-end`, nodes[5], nodes[7]),
       createLabeledEdge(`${id}-edge-c-end`, nodes[6], nodes[7]),
     ],
@@ -1224,6 +1234,35 @@ function createLoopEdge(
       { x: leftX, y: fromCenter.y },
       { x: leftX, y: toCenter.y },
       { x: to.x, y: toCenter.y },
+    ],
+  };
+}
+
+function createOuterMergeEdge(
+  id: string,
+  from: FlowNode,
+  to: FlowNode,
+  side: "left" | "right",
+): FlowEdge {
+  const fromCenterY = from.y + from.height / 2;
+  const toCenterY = to.y + to.height / 2;
+  const isRight = side === "right";
+  const startX = isRight ? from.x + from.width : from.x;
+  const endX = isRight ? to.x + to.width : to.x;
+  const laneX = isRight
+    ? Math.max(from.x + from.width, to.x + to.width) + 100
+    : Math.min(from.x, to.x) - 100;
+
+  return {
+    id,
+    from: from.id,
+    to: to.id,
+    direction: isRight ? "bottom-right" : "bottom-left",
+    points: [
+      { x: startX, y: fromCenterY },
+      { x: laneX, y: fromCenterY },
+      { x: laneX, y: toCenterY },
+      { x: endX, y: toCenterY },
     ],
   };
 }

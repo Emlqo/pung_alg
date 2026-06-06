@@ -115,7 +115,7 @@ export default function TeacherPage() {
 
       const loadedStages = await getStages();
       setStages(loadedStages);
-      setSuccessMessage("기본 산술 순서도 문제가 추가되었습니다.");
+      setSuccessMessage("기본 문제와 새 배치가 적용되었습니다.");
     } catch (error) {
       setErrorMessage(getErrorMessage(error));
     } finally {
@@ -144,7 +144,9 @@ export default function TeacherPage() {
                 onClick={handleSeedDefaultStages}
                 type="button"
               >
-                {isSeedingDefaults ? "추가 중..." : "기본 문제 추가"}
+                {isSeedingDefaults
+                  ? "적용 중..."
+                  : "기본 문제 추가/업데이트"}
               </button>
               <Link
                 className="inline-flex min-h-14 items-center justify-center rounded-[8px] bg-emerald-600 px-6 text-lg font-black text-white transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200"
