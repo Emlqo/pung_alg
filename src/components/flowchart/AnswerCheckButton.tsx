@@ -8,6 +8,7 @@ type AnswerCheckButtonProps = {
   status: AnswerCheckStatus;
   onCheck: () => void;
   onReset: () => void;
+  checkDisabled?: boolean;
   isStageCleared?: boolean;
   nextStageId?: string;
 };
@@ -22,6 +23,7 @@ export function AnswerCheckButton({
   status,
   onCheck,
   onReset,
+  checkDisabled = false,
   isStageCleared = false,
   nextStageId,
 }: AnswerCheckButtonProps) {
@@ -41,11 +43,12 @@ export function AnswerCheckButton({
 
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1">
         <button
-          className="min-h-14 rounded-[8px] bg-emerald-600 px-5 text-lg font-black text-white shadow-sm transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200"
+          className="min-h-14 rounded-[8px] bg-emerald-600 px-5 text-lg font-black text-white shadow-sm transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200 disabled:cursor-not-allowed disabled:bg-slate-300"
+          disabled={checkDisabled}
           onClick={onCheck}
           type="button"
         >
-          정답 확인
+          {checkDisabled ? "잠시 후 다시 확인" : "정답 확인"}
         </button>
         <button
           className="min-h-14 rounded-[8px] border-2 border-slate-300 bg-white px-5 text-lg font-black text-slate-700 transition hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-4 focus:ring-slate-200"

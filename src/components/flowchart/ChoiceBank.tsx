@@ -11,6 +11,7 @@ type ChoiceBankProps = {
   onSelectChoice: (choice: Choice) => void;
   selectedChoiceValue?: string;
   usedChoiceValues: Set<string>;
+  isCheckDisabled?: boolean;
   isStageCleared?: boolean;
   nextStageId?: string;
 };
@@ -23,6 +24,7 @@ export function ChoiceBank({
   onSelectChoice,
   selectedChoiceValue,
   usedChoiceValues,
+  isCheckDisabled = false,
   isStageCleared = false,
   nextStageId,
 }: ChoiceBankProps) {
@@ -69,6 +71,7 @@ export function ChoiceBank({
 
       <div className="xl:shrink-0">
         <AnswerCheckButton
+          checkDisabled={isCheckDisabled}
           isStageCleared={isStageCleared}
           nextStageId={nextStageId}
           onCheck={onCheckAnswers}

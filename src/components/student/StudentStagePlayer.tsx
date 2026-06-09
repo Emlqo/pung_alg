@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -33,6 +33,17 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
   const [isStageCleared, setIsStageCleared] = useState(false);
   const [nextStage, setNextStage] = useState<Stage | null>(null);
   const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null);
+  const [isCheckLocked, setIsCheckLocked] = useState(false);
+  const checkLockTimeoutRef = useRef<number | null>(null);
+
+  useEffect(
+    () => () => {
+      if (checkLockTimeoutRef.current !== null) {
+        window.clearTimeout(checkLockTimeoutRef.current);
+      }
+    },
+    [],
+  );
 
   const blanks = useMemo(
     () => stage.nodes.flatMap((node) => node.blanks),
@@ -86,6 +97,10 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
   };
 
   const handleCheckAnswers = () => {
+    if (isCheckLocked) {
+      return;
+    }
+
     const hasEmptyBlank = blanks.some((blank) => !answers[blank.id]);
 
     if (hasEmptyBlank) {
@@ -108,6 +123,12 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
       markStageCompleted(stage.id);
       setIsStageCleared(true);
       setNextStage(getNextStage(stage.id, stages, getCompletedStageIds()));
+    } else {
+      setIsCheckLocked(true);
+      checkLockTimeoutRef.current = window.setTimeout(() => {
+        setIsCheckLocked(false);
+        checkLockTimeoutRef.current = null;
+      }, 5000);
     }
 
     setBlankResults(nextResults);
@@ -186,6 +207,7 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
             <ChoiceBank
               answerStatus={answerStatus}
               choices={shuffledChoices}
+              isCheckDisabled={isCheckLocked}
               isStageCleared={isStageCleared}
               nextStageId={nextStage?.id}
               onCheckAnswers={handleCheckAnswers}
