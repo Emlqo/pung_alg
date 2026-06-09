@@ -73,6 +73,9 @@ export const defaultArithmeticStages: Stage[] = [
   createVendingMachineStage(),
   createPasswordLimitStage(),
   createScoreGradeStage(),
+  createLibraryLoanHardStage(),
+  createRideSafetyHardStage(),
+  createOnlineOrderHardStage(),
 ];
 
 function createArithmeticStage({
@@ -1174,6 +1177,432 @@ function createScoreGradeStage(): Stage {
   };
 }
 
+function createLibraryLoanHardStage(): Stage {
+  const id = "default-hard-library-loan";
+  const nodes: FlowNode[] = [
+    createFullBlankNode({
+      stageId: id,
+      key: "start",
+      type: "start",
+      x: 560,
+      y: 40,
+      answer: "시작",
+      width: 180,
+      height: 72,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "input",
+      type: "input",
+      x: 480,
+      y: 180,
+      answer: "학생증과 책 정보를 입력한다",
+      width: 340,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "condition",
+      type: "condition",
+      x: 460,
+      y: 350,
+      answer: "책을 대출할 수 있는가?",
+      width: 380,
+      height: 170,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "register",
+      type: "process",
+      x: 920,
+      y: 590,
+      answer: "대출 정보를 등록한다",
+      width: 340,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "success",
+      type: "output",
+      x: 920,
+      y: 760,
+      answer: "대출 완료를 안내한다",
+      width: 340,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "failure",
+      type: "output",
+      x: 40,
+      y: 590,
+      answer: "대출 불가를 안내한다",
+      width: 340,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "end",
+      type: "end",
+      x: 560,
+      y: 940,
+      answer: "끝",
+      width: 180,
+      height: 72,
+    }),
+  ];
+
+  return {
+    id,
+    title: "도서관 책 대출 절차 완성",
+    description:
+      "시작한 뒤 학생증과 책 정보를 입력한다. 책을 대출할 수 있는지 확인하고, 예이면 대출 정보를 등록한 뒤 대출 완료를 안내한다. 아니오이면 대출 불가를 안내한다. 마지막에는 절차를 끝낸다.",
+    difficulty: "hard",
+    problemType: "flowchart-fill-blank",
+    createdAt: now,
+    updatedAt: now,
+    nodes,
+    edges: [
+      createVerticalEdge(`${id}-edge-start-input`, nodes[0], nodes[1]),
+      createVerticalEdge(`${id}-edge-input-condition`, nodes[1], nodes[2]),
+      createLabeledEdge(
+        `${id}-edge-condition-register`,
+        nodes[2],
+        nodes[3],
+        "예",
+      ),
+      createLabeledEdge(
+        `${id}-edge-condition-failure`,
+        nodes[2],
+        nodes[5],
+        "아니오",
+      ),
+      createVerticalEdge(`${id}-edge-register-success`, nodes[3], nodes[4]),
+      createLabeledEdge(`${id}-edge-success-end`, nodes[4], nodes[6]),
+      createLabeledEdge(`${id}-edge-failure-end`, nodes[5], nodes[6]),
+    ],
+    choices: createFullBlankChoices(id, nodes, [
+      "책을 책장에 다시 꽂는다",
+      "교실로 돌아간다",
+    ]),
+  };
+}
+
+function createRideSafetyHardStage(): Stage {
+  const id = "default-hard-ride-safety";
+  const nodes: FlowNode[] = [
+    createFullBlankNode({
+      stageId: id,
+      key: "start",
+      type: "start",
+      x: 560,
+      y: 40,
+      answer: "시작",
+      width: 180,
+      height: 72,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "input",
+      type: "input",
+      x: 490,
+      y: 180,
+      answer: "키와 나이를 입력한다",
+      width: 320,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "height-condition",
+      type: "condition",
+      x: 460,
+      y: 350,
+      answer: "키가 140cm 이상인가?",
+      width: 380,
+      height: 170,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "age-condition",
+      type: "condition",
+      x: 460,
+      y: 620,
+      answer: "나이가 12세 이상인가?",
+      width: 380,
+      height: 170,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "ride",
+      type: "output",
+      x: 920,
+      y: 650,
+      answer: "탑승 가능을 안내한다",
+      width: 340,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "height-failure",
+      type: "output",
+      x: 40,
+      y: 380,
+      answer: "키 부족을 안내한다",
+      width: 340,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "guardian",
+      type: "output",
+      x: 40,
+      y: 650,
+      answer: "보호자 동반을 안내한다",
+      width: 340,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "end",
+      type: "end",
+      x: 560,
+      y: 900,
+      answer: "끝",
+      width: 180,
+      height: 72,
+    }),
+  ];
+
+  return {
+    id,
+    title: "놀이기구 탑승 조건 완성",
+    description:
+      "시작한 뒤 키와 나이를 입력한다. 먼저 키가 140cm 이상인지 확인한다. 아니오이면 키 부족을 안내한다. 예이면 나이가 12세 이상인지 다시 확인한다. 두 번째 조건이 예이면 탑승 가능을 안내하고, 아니오이면 보호자 동반을 안내한다. 모든 경우의 마지막에는 절차를 끝낸다.",
+    difficulty: "hard",
+    problemType: "flowchart-fill-blank",
+    createdAt: now,
+    updatedAt: now,
+    nodes,
+    edges: [
+      createVerticalEdge(`${id}-edge-start-input`, nodes[0], nodes[1]),
+      createVerticalEdge(`${id}-edge-input-height`, nodes[1], nodes[2]),
+      {
+        ...createVerticalEdge(`${id}-edge-height-age`, nodes[2], nodes[3]),
+        label: "예",
+      },
+      createLabeledEdge(
+        `${id}-edge-height-failure`,
+        nodes[2],
+        nodes[5],
+        "아니오",
+      ),
+      createLabeledEdge(`${id}-edge-age-ride`, nodes[3], nodes[4], "예"),
+      createLabeledEdge(
+        `${id}-edge-age-guardian`,
+        nodes[3],
+        nodes[6],
+        "아니오",
+      ),
+      createLabeledEdge(`${id}-edge-ride-end`, nodes[4], nodes[7]),
+      createOuterMergeEdge(
+        `${id}-edge-height-failure-end`,
+        nodes[5],
+        nodes[7],
+        "left",
+      ),
+      createLabeledEdge(`${id}-edge-guardian-end`, nodes[6], nodes[7]),
+    ],
+    choices: createFullBlankChoices(id, nodes, [
+      "몸무게를 입력한다",
+      "매표소로 돌아간다",
+    ]),
+  };
+}
+
+function createOnlineOrderHardStage(): Stage {
+  const id = "default-hard-online-order";
+  const nodes: FlowNode[] = [
+    createFullBlankNode({
+      stageId: id,
+      key: "start",
+      type: "start",
+      x: 560,
+      y: 40,
+      answer: "시작",
+      width: 180,
+      height: 72,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "input",
+      type: "input",
+      x: 470,
+      y: 180,
+      answer: "주문 금액을 입력한다",
+      width: 360,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "condition",
+      type: "condition",
+      x: 450,
+      y: 350,
+      answer: "주문 금액이 20000원 이상인가?",
+      width: 400,
+      height: 180,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "free-shipping",
+      type: "process",
+      x: 920,
+      y: 600,
+      answer: "배송비를 0원으로 정한다",
+      width: 360,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "paid-shipping",
+      type: "process",
+      x: 20,
+      y: 600,
+      answer: "배송비를 3000원으로 정한다",
+      width: 360,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "calculate",
+      type: "process",
+      x: 470,
+      y: 820,
+      answer: "최종 결제 금액을 계산한다",
+      width: 360,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "output",
+      type: "output",
+      x: 470,
+      y: 990,
+      answer: "최종 결제 금액을 출력한다",
+      width: 360,
+      height: 96,
+    }),
+    createFullBlankNode({
+      stageId: id,
+      key: "end",
+      type: "end",
+      x: 560,
+      y: 1160,
+      answer: "끝",
+      width: 180,
+      height: 72,
+    }),
+  ];
+
+  return {
+    id,
+    title: "온라인 주문 배송비 계산 완성",
+    description:
+      "시작한 뒤 주문 금액을 입력한다. 주문 금액이 20000원 이상인지 확인한다. 예이면 배송비를 0원으로 정하고, 아니오이면 배송비를 3000원으로 정한다. 이후 최종 결제 금액을 계산하고 그 금액을 출력한 뒤 절차를 끝낸다.",
+    difficulty: "hard",
+    problemType: "flowchart-fill-blank",
+    createdAt: now,
+    updatedAt: now,
+    nodes,
+    edges: [
+      createVerticalEdge(`${id}-edge-start-input`, nodes[0], nodes[1]),
+      createVerticalEdge(`${id}-edge-input-condition`, nodes[1], nodes[2]),
+      createLabeledEdge(
+        `${id}-edge-condition-free`,
+        nodes[2],
+        nodes[3],
+        "예",
+      ),
+      createLabeledEdge(
+        `${id}-edge-condition-paid`,
+        nodes[2],
+        nodes[4],
+        "아니오",
+      ),
+      createLabeledEdge(`${id}-edge-free-calculate`, nodes[3], nodes[5]),
+      createLabeledEdge(`${id}-edge-paid-calculate`, nodes[4], nodes[5]),
+      createVerticalEdge(`${id}-edge-calculate-output`, nodes[5], nodes[6]),
+      createVerticalEdge(`${id}-edge-output-end`, nodes[6], nodes[7]),
+    ],
+    choices: createFullBlankChoices(id, nodes, [
+      "상품 가격을 할인한다",
+      "주문을 바로 취소한다",
+    ]),
+  };
+}
+
+function createFullBlankNode({
+  stageId,
+  key,
+  type,
+  x,
+  y,
+  answer,
+  width,
+  height,
+}: {
+  stageId: string;
+  key: string;
+  type: FlowNode["type"];
+  x: number;
+  y: number;
+  answer: string;
+  width: number;
+  height: number;
+}): FlowNode {
+  const nodeId = `${stageId}-${key}`;
+  const blankId = `${nodeId}-blank`;
+
+  return {
+    id: nodeId,
+    type,
+    x,
+    y,
+    text: `{{${blankId}}}`,
+    blanks: [
+      {
+        id: blankId,
+        answer,
+        placeholder: "내용 선택",
+        acceptedType: "text",
+      },
+    ],
+    width,
+    height,
+  };
+}
+
+function createFullBlankChoices(
+  stageId: string,
+  nodes: FlowNode[],
+  distractors: string[],
+): Choice[] {
+  const answerChoices = nodes.flatMap((node) =>
+    node.blanks.map((blank) => ({
+      id: `${blank.id}-choice`,
+      label: blank.answer,
+      value: blank.answer,
+    })),
+  );
+  const distractorChoices = distractors.map((value, index) => ({
+    id: `${stageId}-distractor-${index + 1}`,
+    label: value,
+    value,
+  }));
+
+  return [...answerChoices, ...distractorChoices];
+}
+
 function createLabeledEdge(
   id: string,
   from: FlowNode,
@@ -1251,7 +1680,7 @@ function createOuterMergeEdge(
   const endX = isRight ? to.x + to.width : to.x;
   const laneX = isRight
     ? Math.max(from.x + from.width, to.x + to.width) + 100
-    : Math.min(from.x, to.x) - 100;
+    : Math.max(20, Math.min(from.x, to.x) - 100);
 
   return {
     id,

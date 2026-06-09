@@ -34,7 +34,7 @@ export function DropBlank({
     <button
       aria-label={value ? `${value} 제거` : `${blank.placeholder} 빈칸`}
       className={[
-        "inline-flex min-h-12 min-w-28 items-center justify-center rounded-[8px] border-2 border-dashed px-4 py-1 align-middle text-xl font-black transition",
+        "inline-flex min-h-12 max-w-[92%] items-center justify-center rounded-[8px] border-2 border-dashed px-3 py-2 align-middle text-center text-base font-black leading-6 transition sm:text-lg",
         getBlankClass({ hasSelectedChoice, result, value }),
         hasSelectedChoice || value
           ? "cursor-pointer hover:brightness-95 focus:outline-none focus:ring-4 focus:ring-sky-200"
@@ -44,12 +44,17 @@ export function DropBlank({
       type="button"
     >
       {value ? (
-        <span className="inline-flex items-center gap-2">
-          {value}
-          <span className="text-base font-black opacity-70">x</span>
+        <span className="flex max-w-full items-center justify-center gap-2">
+          <span className="break-keep">{value}</span>
+          <span
+            aria-hidden="true"
+            className="shrink-0 text-sm font-black opacity-60"
+          >
+            x
+          </span>
         </span>
       ) : (
-        blank.placeholder
+        <span className="break-keep">{blank.placeholder}</span>
       )}
     </button>
   );
@@ -73,7 +78,7 @@ function getBlankClass({
   }
 
   if (value) {
-    return "rounded-full border-solid border-sky-500 bg-sky-100 text-sky-900 shadow-sm";
+    return "border-solid border-sky-500 bg-sky-100 text-sky-900 shadow-sm";
   }
 
   if (hasSelectedChoice) {

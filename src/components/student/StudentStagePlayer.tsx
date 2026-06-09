@@ -151,9 +151,20 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
                 <h1 className="mt-2 text-2xl font-black text-slate-950 sm:text-3xl">
                   {stage.title}
                 </h1>
-                <p className="mt-2 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
-                  {stage.description}
-                </p>
+                {stage.difficulty === "hard" ? (
+                  <div className="mt-4 max-w-4xl rounded-[8px] border-2 border-amber-200 bg-amber-50 px-4 py-4">
+                    <p className="text-sm font-black text-amber-800">
+                      문제 설명
+                    </p>
+                    <p className="mt-1 text-base font-bold leading-8 text-slate-800 sm:text-lg">
+                      {stage.description}
+                    </p>
+                  </div>
+                ) : (
+                  <p className="mt-2 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
+                    {stage.description}
+                  </p>
+                )}
               </div>
               <div className="rounded-[8px] bg-emerald-50 px-5 py-3 text-lg font-black text-emerald-800">
                 {filledCount} / {blankCount} 칸 채움
@@ -161,7 +172,7 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
             </div>
           </header>
 
-          <section className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_320px]">
+          <section className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_380px]">
             <FlowchartCanvas
               answers={answers}
               blankResults={blankResults}
