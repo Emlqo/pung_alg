@@ -128,7 +128,7 @@ export function StudentStagePlayer({ stage, stages }: StudentStagePlayerProps) {
       checkLockTimeoutRef.current = window.setTimeout(() => {
         setIsCheckLocked(false);
         checkLockTimeoutRef.current = null;
-      }, 5000);
+      }, 10000);
     }
 
     setBlankResults(nextResults);
