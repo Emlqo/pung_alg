@@ -1256,7 +1256,7 @@ function createLibraryLoanHardStage(): Stage {
     id,
     title: "도서관 책 대출 절차 완성",
     description:
-      "시작한 뒤 학생증과 책 정보를 입력한다. 책을 대출할 수 있는지 확인하고, 예이면 대출 정보를 등록한 뒤 대출 완료를 안내한다. 아니오이면 대출 불가를 안내한다. 마지막에는 절차를 끝낸다.",
+      "1. 학생증과 책 정보를 입력한다. 2. 책의 대출 가능 여부를 확인한다. 3. 확인 결과에 따라 대출을 처리하거나 불가 안내를 한다. 4. 대출 절차를 종료한다.",
     difficulty: "hard",
     problemType: "flowchart-fill-blank",
     createdAt: now,
@@ -1377,7 +1377,7 @@ function createRideSafetyHardStage(): Stage {
     id,
     title: "놀이기구 탑승 조건 완성",
     description:
-      "시작한 뒤 키와 나이를 입력한다. 먼저 키가 140cm 이상인지 확인한다. 아니오이면 키 부족을 안내한다. 예이면 나이가 12세 이상인지 다시 확인한다. 두 번째 조건이 예이면 탑승 가능을 안내하고, 아니오이면 보호자 동반을 안내한다. 모든 경우의 마지막에는 절차를 끝낸다.",
+      "1. 이용자의 키와 나이를 입력한다. 2. 키 기준을 먼저 확인한다. 3. 키 조건을 만족하면 나이 기준을 확인한다. 4. 판단 결과에 알맞은 탑승 안내를 한다. 5. 확인 절차를 종료한다.",
     difficulty: "hard",
     problemType: "flowchart-fill-blank",
     createdAt: now,
@@ -1508,7 +1508,7 @@ function createOnlineOrderHardStage(): Stage {
     id,
     title: "온라인 주문 배송비 계산 완성",
     description:
-      "시작한 뒤 주문 금액을 입력한다. 주문 금액이 20000원 이상인지 확인한다. 예이면 배송비를 0원으로 정하고, 아니오이면 배송비를 3000원으로 정한다. 이후 최종 결제 금액을 계산하고 그 금액을 출력한 뒤 절차를 끝낸다.",
+      "1. 주문 금액을 입력한다. 2. 무료 배송 기준을 만족하는지 확인한다. 3. 조건에 따라 배송비를 결정한다. 4. 최종 결제 금액을 계산하고 출력한다. 5. 주문 계산 절차를 종료한다.",
     difficulty: "hard",
     problemType: "flowchart-fill-blank",
     createdAt: now,
